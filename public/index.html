@@ -1,0 +1,120 @@
+<html ng-app="app">
+    <head>
+        <title>Cliente Angular</title>
+        <link rel="stylesheet" href="/bower_components/jquery/dist/jquery.min.js"/>
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+        <script src="/bower_components/angular/angular.min.js"></script>
+        <script src="/app/app.js"></script>
+        <script src="/controllers/matriculaController.js"></script>
+        <script src="/services/rest.js"></script>
+
+    </head>
+
+    <body ng-controller="matriculaController">
+        <form name="form"  style="margin: 5%;" ng-init="listar()">
+            <fieldset>
+                <legend>Cadastrar Aluno</legend>
+                <div class="row">
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="idNome">Nome</label>
+                                <input type="text" ng-model="aluno.nome" minlength="3" class="form-control" required name="nome" id="idNome" placeholder="Nome"/>
+                                <div class="error" ng-show="form.nome.$error.required && form.submitted">
+                                    <span class="error">
+                                        Este campo e obrigatorio.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="idEmail">E-Mail</label>
+                                <input type="email" class="form-control" ng-model="aluno.email" required id="idEmail" name="email" placeholder="E-mail"/>
+                                <div class="error" ng-show="form.email.$invalid && form.submitted">
+                                    <span class="error">
+                                        Este campo e obrigatorio.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="idSexo">Sexo</label>
+                            <select class="form-control" minlength="1"  ng-model="aluno.sexoEnum" required name="sexo" id="idSexo" name="sexo">
+                                <option value="">Selecione</option>
+                                <option value="FEMININO">Feminino</option>
+                                <option value="MASCULINO">Masculino</option>
+                            </select>
+                            <div class="error" ng-show="form.sexo.$error.required && form.submitted">
+                                <span class="error">
+                                    Este campo e obrigatorio.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class="row">
+                    <div class="pull-right">
+                        <a class="btn btn-default" ng-click="limpar();">Cancelar</a>
+                        <a class="btn btn-primary" ng-click="salvar();">Salvar</a>
+                    </div>
+                </div>
+
+
+            </fieldset>
+
+            <fieldset>
+                <legend>Alunos Cadastrados</legend>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nome</th>
+                            <th>E-Mail</th>
+                            <th>Sexo</th>
+                            <th>Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="aluno in alunos">
+                            <td>{{aluno.id}}</td>
+                            <td>{{aluno.nome}}</td>
+                            <td>{{aluno.email}}</td>
+                            <td>{{aluno.sexoEnum}}</td>
+                            <td>
+                                <a class="btn btn-primary" ng-click="editar(aluno)">
+                                    <icon class="glyphicon glyphicon-pencil"></icon>
+                                </a>
+                                <a class="btn btn-danger" ng-click="apagar(aluno)">
+                                    <icon class="glyphicon glyphicon-trash"></icon>
+                                </a>
+
+                            </td>
+
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+            </fieldset>
+
+
+
+
+        </form>
+
+
+
+    </body>
+
+</html>
